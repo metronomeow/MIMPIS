@@ -19,6 +19,7 @@ bool Parser::readFile( std::ifstream & fs, Graph &graph ) {
     if( !edgeCount ) return false;
 
     fs >> reqTime;
+    graph.setRequire( reqTime );
 
     std::getline( fs, buf );
     if( !buf.empty() ) return false;
@@ -40,7 +41,7 @@ bool Parser::readFile( std::ifstream & fs, Graph &graph ) {
         if( !graph.addEdge( node1, node2 ) )  return false;
 
     }
-    graph.print( std::cout );
+    
     return true;
 }
 bool Parser::isAllowedSymbol( char sym ) {

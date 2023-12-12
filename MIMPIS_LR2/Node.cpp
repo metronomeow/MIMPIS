@@ -1,6 +1,6 @@
 #include "Node.h"
 
-Node::Node( char sym, double weight ) : name(sym), weight(weight) {}
+Node::Node( char sym, double weight ) : name(sym), weight(weight), arrived(0), required(0), slack(0) {}
 
 void Node::addFromEdge( Edge * from ) {
     if(from) fromEdge.push_back( from );

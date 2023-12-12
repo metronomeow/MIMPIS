@@ -50,8 +50,18 @@ void readFileAndMakeGraph( std::string inFileName, std::string outFileName ) {
     if( !edges ) EXIT( "There is no edges number in the beginning of file, or it is equal 0" );*/
 
 
-
+    graph.computeCriticalPath();
+    graph.computeRequiredTime();
+    graph.computeSlack();
+    //graph.print( std::cout );
+    INFO( graph.print );
     inFile.close();
+
+    if( outFileName.empty() ) return;
+    std::ofstream outFile( outFileName );
+    graph.output( outFile );
+    outFile.close();
+
 }
 
 int main( int ac, char *av[] ) {

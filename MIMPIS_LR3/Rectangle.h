@@ -1,5 +1,6 @@
 #pragma once
 #include <string>
+#include <vector>
 
 class Polygon;
 class Rectangle;
@@ -38,7 +39,7 @@ public:
     bool isRect();
     bool isEmpty();
     Polygon * castToPolygon();
-    void isCrossLine( Point start, Point end, Point * result );
+    void isCrossLine( Point start, Point end, std::vector<Point> & result );
 };
 
 

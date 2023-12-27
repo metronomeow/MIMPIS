@@ -7,7 +7,9 @@ Polygon operator+( Polygon & r1, Rectangle & r2 ) {
     for( auto p : r1.points ) result.points.push_back( p );
     for( auto p : newPoints ) result.points.push_back( p );
     for( size_t i = 0; i < result.points.size(); i++ ) {
-        if( result.points[ i ].isInside( r2 ) ) result.points.erase( result.points.begin() + i );
+        if( result.points[ i ].isInside( r2 ) ) 
+            result.points.erase( result.points.begin() + i );
+        //if( std::find( result.points.begin(), result.points.end(), result.points.begin() + i )
     }
     return result;
 }
@@ -20,19 +22,12 @@ Polygon operator+( Rectangle & r1, Rectangle & r2 ) {
 }
 
 std::vector<Point> Polygon::findCrossPoints( Rectangle & rect ) {
-     std::vector<Point> p;
+     std::vector<Point> res;
      for( size_t i = 0; i < points.size() - 1; i++ ) {
-        Point * res = nullptr;
         rect.isCrossLine( points[ i ], points[ i + 1 ], res );
-        if( !res ) continue;
-        p.push_back( *res );
-        delete res;
-    }
+        //if( !res.size() ) continue;
+     }
 
-     Point * res = nullptr;
      rect.isCrossLine( points[ 0 ], points[ points.size() - 1 ], res );
-     if( !res ) return p;
-     p.push_back( *res );
-     delete res;
-     return p;
+     return res;
 }

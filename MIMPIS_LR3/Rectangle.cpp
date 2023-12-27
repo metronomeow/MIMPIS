@@ -1,6 +1,6 @@
 #include "Rectangle.h"
 #include"Polygon.h"
-
+#include <vector>
 void Rectangle::computeHeightWidth() {
     int height = topRight.y() - origin.y();
     int width = topRight.x() - origin.x();
@@ -29,9 +29,8 @@ Polygon * Rectangle::castToPolygon() {
     return pol;
 }
 
-void Rectangle::isCrossLine( Point start, Point end, Point * result ) {
-    result = nullptr;
-    if( start > end ) {
+void Rectangle::isCrossLine( Point start, Point end, std::vector<Point> & result ) {
+    if( start.x() > end.x() or start.y() > end.y() ) {
         Point swap( start );
         start = end; 
         end = swap;
@@ -40,12 +39,12 @@ void Rectangle::isCrossLine( Point start, Point end, Point * result ) {
     //if( !start.isInside( *this ) and !end.isInside( *this ) ) return;
     //to do если линия насквозь через прямоугольник то тоже пересекает, посчитать точки (и их 2...)
     if( start.x() == end.x() ) { //vertical
-        if( start.y() <= origin.y() and origin.y() <= end.y() ) result = new Point( start.x(), origin.y() );
-        if( start.y() <= topRight.y() and topRight.y() <= end.y() )  result = new Point( start.x(), topRight.y() );
+        if( start.y() <= origin.y() and origin.y() <= end.y() ) result.push_back( Point( start.x(), origin.y() ) );
+        if( start.y() <= topRight.y() and topRight.y() <= end.y() )  result.push_back( Point( start.x(), topRight.y() ) );
     }
     if( start.y() == end.y() ) { //horizontal
-        if( start.x() <=   origin.x() and origin.x() <= end.x() )  result = new Point( origin.x(), start.y() );
-        if( start.x() <= topRight.x() and topRight.x() <= end.x() )  result = new Point( topRight.x(), start.y() );
+        if( start.x() <=   origin.x() and origin.x() <= end.x() )  result.push_back( Point( origin.x(), start.y() ) );
+        if( start.x() <= topRight.x() and topRight.x() <= end.x() )  result.push_back( Point( topRight.x(), start.y() ) );
     }
 }
 

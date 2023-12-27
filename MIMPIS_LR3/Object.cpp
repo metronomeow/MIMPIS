@@ -43,7 +43,7 @@ Object::~Object() {
     rects.clear();
 }
 
-void Nmos::andOperation() {
+void Nmos::andOperation( std::ofstream & f ) {
     std::vector<Rectangle *> rectsDIFFN;
     std::vector<Rectangle *> rectsPOLY;
     for( auto r : rects ) {
@@ -55,12 +55,18 @@ void Nmos::andOperation() {
         for( size_t j = 0; j < rectsDIFFN.size(); j++ ) {
             Rectangle result = *( rectsPOLY[ i ] );
             result = result & *rectsDIFFN[ j ];
-            if( !result.isEmpty() ) std::cout << "AND: " << result.getOrigin().x() << " " << result.getOrigin().y() << " " << result.getTopRight().x() << " " << result.getTopRight().y() << std::endl;
+            if( result.isEmpty() ) continue;
+            f << "NMOS Poly RECT " << rectsPOLY[ i ]->getOrigin().x() << " " 
+                << rectsPOLY[ i ]->getOrigin().y() << " " << rectsPOLY[i]->getTopRight().x() << " " << rectsPOLY[i]->getTopRight().y()<<" ";
+            f << "NMOS DIFFN RECT " << rectsDIFFN[ j ]->getOrigin().x() << " "
+                << rectsDIFFN[ j ]->getOrigin().y() << " " << rectsDIFFN[j]->getTopRight().x() << " " << rectsDIFFN[j]->getTopRight().y() << " ";
+            std::cout << "AND: " << result.getOrigin().x() << " " << result.getOrigin().y() << " " << result.getTopRight().x() << " " << result.getTopRight().y() << std::endl;
+            f << "POLYGON: " << result.getOrigin().x() << " " << result.getOrigin().y() << " " << result.getTopRight().x() << " " << result.getTopRight().y() << std::endl;
         }
     }
 }
 
-void Pmos::andOperation() {
+void Pmos::andOperation( std::ofstream & f ) {
     std::vector<Rectangle *> rectsDIFFN;
     std::vector<Rectangle *> rectsPOLY;
     for( auto r : rects ) {
@@ -72,7 +78,15 @@ void Pmos::andOperation() {
         for( size_t j = 0; j < rectsDIFFN.size(); j++ ) {
             Rectangle result = *( rectsPOLY[ i ] );
             result = result & *rectsDIFFN[ j ];
-            if( !result.isEmpty() ) std::cout << "AND: " << result.getOrigin().x() << " " << result.getOrigin().y() << " " << result.getTopRight().x() << " " << result.getTopRight().y() << std::endl;
+            
+            if( result.isEmpty() ) continue;
+            f << "PMOS Poly RECT " << rectsPOLY[ i ]->getOrigin().x() << " " 
+                << rectsPOLY[ i ]->getOrigin().y() << " " << rectsPOLY[i]->getTopRight().x() << " " << rectsPOLY[i]->getTopRight().y() << " ";
+            f << "PMOS DIFFP RECT " << rectsDIFFN[ j ]->getOrigin().x() << " "
+                << rectsDIFFN[ j ]->getOrigin().y() << " " << rectsDIFFN[j]->getTopRight().x() << " " << rectsDIFFN[j]->getTopRight().y() << " ";
+            std::cout << "AND: " << result.getOrigin().x() << " " << result.getOrigin().y() << " " << result.getTopRight().x() << " " << result.getTopRight().y() << std::endl;
+            f << "POLYGON: " << result.getOrigin().x() << " " << result.getOrigin().y() << " " << result.getTopRight().x() << " " << result.getTopRight().y() << std::endl;
+
         }
     }
 }

@@ -31,7 +31,7 @@ public:
     virtual ObjType getType() = 0;
     virtual void readObj( std::ifstream & fs );
     virtual void addRect( std::string layer, int leftX, int leftY, int rightX, int rightY );
-    virtual void andOperation() {};
+    virtual void andOperation( std::ofstream & f ) {};
     ~Object();
 };
 
@@ -47,7 +47,7 @@ class Nmos : public Object {
 public :
     Nmos( ObjType t ) : Object( t ) {};
     ObjType getType() override { return nmos; }
-    virtual void andOperation() override;
+    virtual void andOperation( std::ofstream & f ) override;
 
 };
 
@@ -55,7 +55,7 @@ class Pmos : public Object {
 public :
     Pmos( ObjType t ) : Object( t ) {};
     ObjType getType() override { return pmos; }
-    virtual void andOperation() override;
+    virtual void andOperation( std::ofstream & f ) override;
 
 };
 
